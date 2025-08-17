@@ -2,6 +2,7 @@
 using namespace std;
 
 void SelectionProcess();
+void Termination();
 void PowerOn();
 void PowerOff();
 
@@ -10,6 +11,7 @@ void PowerOff();
 int main() {
     PowerOn();
     SelectionProcess();
+    Termination();
     cout << "End\n";
     return 0;
 
@@ -34,13 +36,13 @@ void SelectionProcess() {
             cout << "Adding Steamed Milk...\n";
             
 
-        case 1:
+        case 1: 
             if (choice == 1) {
                 cout << "Adding Steamed Milk...\n";
             }
-          
+            
 
-        case 2: 
+        case 2:
             cout << "Adding Hot Coffee...\n";
             break;
 
@@ -50,7 +52,19 @@ void SelectionProcess() {
 }
 
 
+void Termination() {
+    char press;
+    cout << "\nPress P to power off machine: ";
+    cin >> press;
 
+    if (press == 'P' || press == 'p') {
+        PowerOff();
+    } else {
+        cout << "Returning to Selection Process...\n";
+        SelectionProcess();
+        Termination(); 
+    }
+}
 
 void PowerOff() {
     cout << "Machine Powered Off\n";
