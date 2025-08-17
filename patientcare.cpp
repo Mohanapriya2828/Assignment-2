@@ -70,3 +70,32 @@ void assignDoctor() {
     cout << "Assigning patient to doctor...\n";
 }
 
+void followUp() {
+    char choice;
+    cout << "Does patient need follow-up? (y/n): ";
+    cin >> choice;
+    if (tolower(choice) == 'y') {
+        cout << "Arranging follow-up appointment...\n";
+    } else {
+        cout << "No follow-up required.\n";
+    }
+}
+
+void medication() {
+    char choice;
+    cout << "Does patient need medication? (y/n): ";
+    cin >> choice;
+    if (tolower(choice) == 'y') {
+        cout << "Giving patient prescription...\n";
+    } else {
+        cout << "No medication required.\n";
+    }
+}
+
+void patientLeaves() {
+    cout << "Patient leaves the hospital...\n";
+}
+
+
+
+
