@@ -2,10 +2,6 @@
 #include <fstream>
 #include <cctype>
 using namespace std;
-#include <iostream>
-#include <fstream>
-#include <cctype>
-using namespace std;
 
 char getYesNo(const string& prompt) {
     char choice;
@@ -18,6 +14,28 @@ char getYesNo(const string& prompt) {
         } else {
             cout << "Invalid input, please enter y/n.\n";
         }
+    }
+}
+
+void errorReport() {
+    cout << "Generating error report...\n";
+    ofstream file("error.csv", ios::app);
+    if (file.is_open()) {
+        file << "SampleIssue,Reported\n";
+        file.close();
+        cout << "Error Report Stored in error.csv\n";
+    }
+}
+void errorDB() { cout << "Logging error into database...\n"; }
+void errorAnalysis() { cout << "Performing error analysis...\n"; }
+void solveIssue() { cout << "Solving issue based on error analysis...\n"; }
+void issueFixed() {
+    cout << "Confirming with customer if issue is fixed...\n";
+    ofstream file("error.csv", ios::app);
+    if (file.is_open()) {
+        file << "SampleIssue,Fixed\n";
+        file.close();
+        cout << "Fix status stored in error.csv\n";
     }
 }
 
