@@ -5,10 +5,14 @@ using namespace std;
 
 void getWaste();
 void wasteSeparation();
+void energy();
+void landfill();
+string getYesNo(string question);
+
 
 int main() {
-    getWaste(); 
-    wasteSeparation(); 
+    getWaste();
+    wasteSeparation();
     return 0;
 }
 
@@ -18,24 +22,32 @@ void getWaste() {
 }
 
 
-void wasteSeparation() {
+string getYesNo(string question) {
     string choice;
-    cout << "Is the waste Organic? (yes/no): ";
-    cin >> choice;
+    while (true) {
+        cout << question;
+        cin >> choice;
+        if (choice == "yes" || choice == "no") {
+            return choice;
+        } else {
+            cout << "Invalid input! Please enter yes or no." << endl;
+        }
+    }
+}
+
+
+void wasteSeparation() {
+    string choice = getYesNo("Is the waste Organic? (yes/no): ");
 
     if (choice == "yes") {
         energy(); 
     } else {
-        cout << "Is the waste Reusable? (yes/no): ";
-        cin >> choice;
-
+        choice = getYesNo("Is the waste Reusable? (yes/no): ");
         if (choice == "yes") {
             cout << "Waste is Reused for other applications." << endl;
             return;
         } else {
-            cout << "Is the waste Recyclable? (yes/no): ";
-            cin >> choice;
-
+            choice = getYesNo("Is the waste Recyclable? (yes/no): ");
             if (choice == "yes") {
                 cout << "Waste is Recycled for other applications." << endl;
                 return;
@@ -43,6 +55,17 @@ void wasteSeparation() {
                 landfill();
             }
         }
+    }
+}
+
+
+void energy() {
+    string choice = getYesNo("Does the waste have High Energy? (yes/no): ");
+
+    if (choice == "yes") {
+        cout << "Converted to Bio-Fuel." << endl;
+    } else {
+        cout << "Converted to Organic Fertilizer." << endl;
     }
 }
 
