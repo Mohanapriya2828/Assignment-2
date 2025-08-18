@@ -23,6 +23,7 @@ void userIdentification() {
     cout << "User Identification\n";
 }
 
+
 char getYN(string prompt) {
     char choice;
     while (true) {
@@ -36,6 +37,7 @@ char getYN(string prompt) {
         }
     }
 }
+
 
 bool registerUser() {
     userIdentification();
@@ -73,6 +75,22 @@ bool loginUser() {
     return true;
 }
 
+
+void selectVehicleAndPay() {
+    cout << "Selecting vehicle...\n";
+    
+    char found = getYN("Did you find the desired vehicle?");
+    if (found == 'Y') {
+        cout << "Proceeding to payment...\n";
+        
+        cout << "Payment successful! Vehicle rented.\n";
+    } else {
+        cout << "Returning to dashboard.\n";
+        showDashboard();
+    }
+}
+
+
 int main() {
    
 
@@ -101,12 +119,14 @@ int main() {
         if (isRegistered == 'Y') {
             if (loginUser()) {
                 showDashboard();
+                selectVehicleAndPay();
                 logout();
             }
         } else {
             if (registerUser()) {
                 if (loginUser()) {
                     showDashboard();
+                    selectVehicleAndPay();
                     logout();
                 }
             }
