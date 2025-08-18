@@ -15,6 +15,30 @@ char getYesNo(const string& prompt) {
 }
 
 
+void diagnose() {
+    char errorMsg = getYesNo("Is there an error message? (Y/N): ");
+    if (errorMsg == 'y' || errorMsg == 'Y') {
+        cout << "Perform Diagnosis.\nGo to Power Check.\n";
+    } else {
+        cout << "Computer is in good condition. Return.\n";
+    }
+}
+
+
+void powerSupplyCheck() {
+    char powerLight = getYesNo("Is power light ON? (Y/N): ");
+    if (powerLight == 'y' || powerLight == 'Y') {
+        cout << "Find specialist. Return.\n";
+        return;
+    }
+    char pluggedIn = getYesNo("Is power plugged into wall? (Y/N): ");
+    if (pluggedIn == 'y' || pluggedIn == 'Y') {
+        cout << "Find specialist. Return.\n";
+    } else {
+        cout << "Plug power into the wall. Return.\n";
+    }
+}
+
 
 void powerCheck() {
     char computerOn = getYesNo("Is computer ON? (Y/N): ");
