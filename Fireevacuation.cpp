@@ -9,18 +9,6 @@ void contactFireDept() {
     cout << "Contacting fire department...\n";
 }
 
-
-
-void pushAlarmTrigger() {
-    cout << "Push the fire alarm trigger to alert others!\n";
-}
-
-
-void detectorProcess() {
-    cout << "Smoke detector detects smoke and triggers alarm.\n";
-    bringEssentials();
-    checkDoor();
-}
 void stepsToFollow() {
     cout << "Do not open the door.\n";
     cout << "Seal all the cracks with wet towels.\n";
@@ -28,6 +16,43 @@ void stepsToFollow() {
     cout << "Wave at the windows to identify survivors.\n";
     cout << "Wait for rescue.\n";
 }
+
+void pushAlarmTrigger() {
+    cout << "Push the fire alarm trigger to alert others!\n";
+}
+
+void findSafeRoomAndWait() {
+    cout << "Find and enter a safe room. Seal cracks and wait for rescue.\n";
+    stepsToFollow();
+}
+
+
+void goUp();
+void reason2();
+
+void goUp() {
+    cout << "Go upstairs and reach balcony.\n";
+    char reachedBalcony;
+    cout << "Did you reach the balcony? (y/n): ";
+    cin >> reachedBalcony;
+    if (reachedBalcony == 'y' || reachedBalcony == 'Y') {
+        cout << "Wait for help.\n";
+    } else {
+        reason2();
+    }
+}
+
+void reason2() {
+    char strongSmoke;
+    cout << "Is there strong smoke or fire? (y/n): ";
+    cin >> strongSmoke;
+    if (strongSmoke == 'y' || strongSmoke == 'Y') {
+        findSafeRoomAndWait();
+    } else {
+        goUp();
+    }
+}
+
 void reason1Flow();
 
 void escapeFlow() {
@@ -54,14 +79,33 @@ void reason1Flow() {
     }
 }
 
+void checkDoor() {
+    char input;
+    cout << "Is the door hot or is strong smoke present? (y/n): ";
+    cin >> input;
+    if (input == 'y' || input == 'Y') {
+        stepsToFollow();
+    } else {
+        escapeFlow();
+    }
+}
+
+void detectorProcess() {
+    cout << "Smoke detector detects smoke and triggers alarm.\n";
+    bringEssentials();
+    checkDoor();
+}
+
+
+
+
 void foundByYouOrSomeone() {
     char placeFire;
     cout << "Is the place of fire IN the building? (y/n): ";
     cin >> placeFire;
     if (placeFire == 'n' || placeFire == 'N') {
         contactFireDept();
-        cout << "Returning to main menu.\n";
-        return;
+                return;
     } else if (placeFire == 'y' || placeFire == 'Y') {
         bringEssentials();
         pushAlarmTrigger();
