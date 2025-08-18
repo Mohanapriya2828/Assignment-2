@@ -1,128 +1,164 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <cctype>
-
 using namespace std;
 
-bool registrationFormVerification() {
-    char verified;
-    while (true) {
-        cout << "Is your registration form verified by admission office? (y/n): ";
-        cin >> verified;
-        verified = tolower(verified);
-        if (verified == 'y') {
-            return true;
-        } else if (verified == 'n') {
-            cout << "Please get your registration form verified by admission office and try again.\n";
-        } else {
-            cout << "Invalid input. Please enter 'y' or 'n'.\n";
-        }
+struct Student {
+    string name;
+    string dob;
+    string department;
+    string place;
+    bool visaNeeded;
+    bool visaApplied;
+    bool feePaid;
+    bool accommodationNeeded;
+    bool extraCredits;
+    bool additionalCourseChosen;
+};
+
+void saveToCSV(const Student &s) {
+    ofstream db("student_database.csv", ios::app);
+    if (!db) {
+        cerr << "Error opening database file.\n";
+        return;
     }
+    db << s.name << ","
+       << s.dob << ","
+       << s.department << ","
+       << s.place << ","
+       << (s.visaNeeded ? "Yes" : "No") << ","
+       << (s.visaApplied ? "Yes" : "No") << ","
+       << (s.feePaid ? "Yes" : "No") << ","
+       << (s.accommodationNeeded ? "Yes" : "No") << ","
+       << (s.extraCredits ? "Yes" : "No") << ","
+       << (s.additionalCourseChosen ? "Yes" : "No") << "\n";
+    db.close();
+
+    cout << "\nStudent information saved to CSV database successfully.\n";
 }
-void tutorAssignment() {
-    char hasExtraCredits;
-    cout << "Assigning personal tutor...\n";
-    cout << "Meeting tutor...\n";
+
+char getYesNoInput(const string &prompt) {
+    char choice;
     while (true) {
-        cout << "Do you have extra credits? (y/n): ";
-        cin >> hasExtraCredits;
-        hasExtraCredits = tolower(hasExtraCredits);
-        if (hasExtraCredits == 'y') {
-            cout << "Please choose additional courses.\n";
-            break;
-        } else if (hasExtraCredits == 'n') {
-            cout << "No additional courses chosen.\n";
-            break;
-        } else {
-            cout << "Invalid input. Please enter 'y' or 'n'.\n";
+        cout << prompt << " (y/n): ";
+        cin >> choice;
+        cin.ignore();
+        choice = tolower(choice);
+        if (choice == 'y' || choice == 'n') {
+            return choice;
         }
+        cout << "Invalid input, please enter y or n.\n";
     }
 }
 
-bool visaProcess() {
-    char needVisa, appliedVisa;
-    while (true) {
-        cout << "Do you need a visa? (y/n): ";
-        cin >> needVisa;
-        needVisa = tolower(needVisa);
-        if (needVisa == 'y') {
-            cout << "Inform student to apply for visa.\n";
-            while (true) {
-                cout << "Have you applied for the visa? (y/n): ";
-                cin >> appliedVisa;
-                appliedVisa = tolower(appliedVisa);
-                if (appliedVisa == 'y') {
-                    return true;
-                } else if (appliedVisa == 'n') {
-                    cout << "Please apply for the visa to proceed.\n";
-                } else {
-                    cout << "Invalid input. Please enter 'y' or 'n'.\n";
-                }
+void visa(Student &s) {
+    char visaNeed = getYesNoInput("\nDoes the student need a visa?");
+    s.visaNeeded = (visaNeed == 'y');
+
+    if (s.visaNeeded) {
+        while (true) {
+            cout << "Inform student for visa application.\n";
+            char visaApplied = getYesNoInput("Has the student applied for visa?");
+            if (visaApplied == 'y') {
+                s.visaApplied = true;
+                break;
+            } else {
+                cout << "Please inform student to apply for visa.\n";
             }
-        } else if (needVisa == 'n') {
-            return true;
-        } else {
-            cout << "Invalid input. Please enter 'y' or 'n'.\n";
         }
+    } else {
+        s.visaApplied = false;
+        cout << "Visa not needed. Proceeding...\n";
     }
 }
 
-void feePayment() {
-    char feePaid;
+void fee(Student &s) {
     while (true) {
-        cout << "Have you paid the tuition fees? (y/n): ";
-        cin >> feePaid;
-        feePaid = tolower(feePaid);
+        cout << "\nPay tuition fee.\n";
+        char feePaid = getYesNoInput("Has the tuition fee been paid?");
         if (feePaid == 'y') {
-            return;
-        } else if (feePaid == 'n') {
-            cout << "Please pay the tuition fees before proceeding.\n";
+            s.feePaid = true;
+            break;
         } else {
-            cout << "Invalid input. Please enter 'y' or 'n'.\n";
+            cout << "Tuition fee payment is mandatory. Please pay the fee.\n";
         }
     }
 }
 
-void accommodationAssignment() {
-    char needAccom;
+void accommodation(Student &s) {
+    char needAcc = getYesNoInput("\nDoes the student need accommodation?");
+    s.accommodationNeeded = (needAcc == 'y');
+
+    if (s.accommodationNeeded) {
+        cout << "Assigning accommodation.\n";
+    } else {
+        cout << "Accommodation not needed. Proceeding...\n";
+    }
+}
+
+void assignTutor(Student &s) {
+    cout << "\nAssigning personal tutor.\n";
+    cout << "Meeting personal tutor.\n";
+
+    char credits = getYesNoInput("Does the student have extra credits?");
+    s.extraCredits = (credits == 'y');
+
+    if (s.extraCredits) {
+        char chooseCourse = getYesNoInput("Would the student like to choose an additional course?");
+        s.additionalCourseChosen = (chooseCourse == 'y');
+        if (s.additionalCourseChosen) {
+            cout << "Additional course chosen.\n";
+        } else {
+            cout << "Additional course skipped.\n";
+        }
+    } else {
+        s.additionalCourseChosen = false;
+        cout << "No extra credits.\n";
+    }
+}
+
+void department(Student &s) {
+    cout << "\nSending student to Department...\n";
+    saveToCSV(s);
+
+    visa(s);
+    fee(s);
+    accommodation(s);
+    assignTutor(s);
+}
+
+void registration() {
+    Student s;
+
     while (true) {
-        cout << "Do you need accommodation? (y/n): ";
-        cin >> needAccom;
-        needAccom = tolower(needAccom);
-        if (needAccom == 'y') {
-            cout << "Accommodation will be assigned to you.\n";
-            break;
-        } else if (needAccom == 'n') {
+        cout << "\nComplete Registration Form\n";
+        cout << "Enter student name: ";
+        getline(cin, s.name);
+
+        cout << "Enter date of birth (DD/MM/YYYY): ";
+        getline(cin, s.dob);
+
+        cout << "Enter department: ";
+        getline(cin, s.department);
+
+        cout << "Enter place: ";
+        getline(cin, s.place);
+
+        cout << "\nVerified by admission office?\n";
+        char verified = getYesNoInput("Is the registration verified?");
+        if (verified == 'y') {
             break;
         } else {
-            cout << "Invalid input. Please enter 'y' or 'n'.\n";
+            cout << "Verification failed, please complete form again.\n";
         }
     }
-}
 
+    department(s);
+}
 
 int main() {
-    string studentName;
-
-    cout << "Enter your name: ";
-    cin.ignore(); 
-    getline(cin, studentName);
-
-    if (!registrationFormVerification()) {
-        
-    }
-
-    if (!visaProcess()) {
-        
-    }
-
-    feePayment();
-
-    accommodationAssignment();
-
-    tutorAssignment();
-
-    cout << "\nRegistration process completed successfully for " << studentName << "!\n";
-
+    registration();
+    cout << "\nStudent fully registered!\n";
     return 0;
 }
