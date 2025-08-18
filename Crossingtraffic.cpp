@@ -12,6 +12,9 @@ char getYesNoInput(string prompt) {
         cout << "Invalid input! Please enter y or n.\n";
     }
 }
+
+void foundCrossing();
+void foundTunnel();
 void findingPath();
 
 void findingPath() {
@@ -21,6 +24,25 @@ void findingPath() {
         return;
     }
     foundTunnel();
+}
+
+void foundTunnel() {
+    char choice = getYesNoInput("Did you find a tunnel? (y/n): ");
+    if (choice == 'y') {
+        cout << "Use the tunnel.\n";
+        return;
+    }
+    foundCrossing();
+}
+
+void foundCrossing() {
+    char choice = getYesNoInput("Did you find a crossing? (y/n): ");
+    if (choice == 'y') {
+        trafficLight();
+    } else {
+        cout << "Walk away...\n";
+        findingPath();
+    }
 }
 
 int main() {
