@@ -9,6 +9,7 @@ struct Item {
     bool requiresSeller; 
 };
 
+
 bool contactSeller(const string& itemName) {
     cout << "Contact seller to ship '" << itemName << "' (y/n): ";
     char response;
@@ -40,6 +41,18 @@ bool orderProcessing(vector<Item>& items) {
 }
 
 
+void delivery() {
+    cout << "Send warehouse goods to customer...\n";
+    cout << "Did customer collect goods? (y/n): ";
+    char collected;
+    cin >> collected;
+
+    if (collected == 'y' || collected == 'Y') {
+        cout << "Seller confirms customer received the order.\n";
+    } else {
+        cout << "Customer did not collect the goods. Ending process.\n";
+    }
+}
 
 int main() {
     cout << "Order placed.\n";
@@ -53,6 +66,12 @@ int main() {
     cout << "Order processing...\n";
     bool allProcessed = orderProcessing(order);
 
-    
+    if (allProcessed) {
+        cout << "Proceeding to delivery...\n";
+        delivery();
+    } else {
+        cout << "Order processing incomplete. Exiting.\n";
+    }
+
     return 0;
 }
