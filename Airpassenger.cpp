@@ -53,6 +53,12 @@ void securityScreening() {
     cout << "Security screening completed. Return.\n";
 }
 
+bool permitToEnter() {
+    string permit;
+    cout << "Permit to enter country? (yes/no): ";
+    cin >> permit;
+    return permit == "yes";
+}
 
 void journeyProcess() {
     cout << "Boarding flight...\nFlight departs...\nFlight lands.\n";
@@ -68,7 +74,11 @@ void journeyProcess() {
         return;
     }
 
-    
+    cout << "Proceeding to immigration...\n";
+    if (!permitToEnter()) {
+        cout << "Send to originate country.\nReturn.\n";
+        return;
+    }
 
     cout << "Claim baggage.\nJourney completed.\n";
 }
