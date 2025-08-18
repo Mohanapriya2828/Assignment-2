@@ -13,6 +13,9 @@ char getYesNoInput(string prompt) {
     }
 }
 
+void crossing();
+void trafficColors();
+void trafficLight();
 void foundCrossing();
 void foundTunnel();
 void findingPath();
@@ -44,6 +47,49 @@ void foundCrossing() {
         findingPath();
     }
 }
+
+void trafficLight() {
+    char choice = getYesNoInput("Is there a traffic light? (y/n): ");
+    if (choice == 'y') {
+        trafficColors();
+    } else {
+        crossing();
+    }
+}
+
+void trafficColors() {
+    string color;
+    cout << "Enter traffic light color (red/green): ";
+    cin >> color;
+
+    if (color == "red") {
+        crossing();
+    } else if (color == "green") {
+        crossing();
+    } else {
+        cout << "Invalid color! Try again.\n";
+        trafficColors();
+    }
+}
+
+void crossing() {
+    cout << "Look left.\n";
+    char left = getYesNoInput("Is a car approaching from the left? (y/n): ");
+    if (left == 'y') {
+        crossing();
+        return;
+    }
+
+    cout << "Look right.\n";
+    char right = getYesNoInput("Is a car approaching from the right? (y/n): ");
+    if (right == 'y') {
+        crossing();
+        return;
+    }
+
+    cout << "Cross the traffic safely!\n";
+}
+
 
 int main() {
     findingPath();
