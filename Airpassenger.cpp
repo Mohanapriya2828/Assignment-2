@@ -54,6 +54,24 @@ void securityScreening() {
 }
 
 
+void journeyProcess() {
+    cout << "Boarding flight...\nFlight departs...\nFlight lands.\n";
+
+    string connection;
+    cout << "Is there a connection? (yes/no): ";
+    cin >> connection;
+
+    if (connection == "yes") {
+        cout << "Connection flight -> Security screening required.\n";
+        securityScreening();
+        cout << "Proceeding to next flight...\n";
+        return;
+    }
+
+    
+
+    cout << "Claim baggage.\nJourney completed.\n";
+}
 
 int main() {
     cout << "Check-in and baggage drop completed.\n";
@@ -61,5 +79,14 @@ int main() {
     cout << "Initial Security Screening...\n";
     securityScreening();
 
+    cout << "Immigration Check...\n";
+    if (!permitToEnter()) {
+        cout << "Not permitted -> return to originate country.\n";
+        return 0;
+    }
+
+    journeyProcess();
+
+    cout << "Process finished.\n";
     return 0;
 }
