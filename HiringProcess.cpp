@@ -14,4 +14,26 @@ int main() {
         cout << "Post job internally\n";
         return 0;
     }
+    har isResumeCandidate;
+    cout << " Is there a suitable candidate? (y/n): ";
+    cin >> isResumeCandidate;
+
+    if (isResumeCandidate == 'n' || isResumeCandidate == 'N') {
+        char isQualifiedResume;
+        cout << "Develop recruitment plan\n";
+        cout << "Place advertisements\n";
+        cout << "Collect applications\n";
+        cout << "Is there a suitable candidate? (y/n): ";
+        cin >> isQualifiedResume;
+
+        if (isQualifiedResume == 'n' || isQualifiedResume == 'N') {
+            cout << "Candidate not hired\n";
+            cout << "Return\n";
+            return 0;
+        }
+
+        cout << "Arrange candidate meeting\n";
+    } else {
+        cout << "Arrange candidate meeting\n";
+    }
 }
