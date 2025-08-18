@@ -12,7 +12,25 @@ bool checkAttempts(int attempts) {
     return false;
 }
  
+bool login() {
+    const string correctUsername = "user";  // Predefined username
+    const string correctPassword = "8765";   // Predefined password
  
+    string username, password;
+    cout << "Enter username: ";
+    cin >> username;
+    cout << "Enter password: ";
+    cin >> password;
+ 
+    if (username == correctUsername && password == correctPassword) {
+        cout << "Access granted.\n";
+        return true;
+    } else {
+        cout << "Invalid credentials.\n";
+        return false;
+    }
+} 
+
 int main() {
     int attempts = 0;
     bool access = false;
