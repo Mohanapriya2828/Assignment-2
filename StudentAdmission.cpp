@@ -20,6 +20,67 @@ bool registrationFormVerification() {
     }
 }
 
+bool visaProcess() {
+    char needVisa, appliedVisa;
+    while (true) {
+        cout << "Do you need a visa? (y/n): ";
+        cin >> needVisa;
+        needVisa = tolower(needVisa);
+        if (needVisa == 'y') {
+            cout << "Inform student to apply for visa.\n";
+            while (true) {
+                cout << "Have you applied for the visa? (y/n): ";
+                cin >> appliedVisa;
+                appliedVisa = tolower(appliedVisa);
+                if (appliedVisa == 'y') {
+                    return true;
+                } else if (appliedVisa == 'n') {
+                    cout << "Please apply for the visa to proceed.\n";
+                } else {
+                    cout << "Invalid input. Please enter 'y' or 'n'.\n";
+                }
+            }
+        } else if (needVisa == 'n') {
+            return true;
+        } else {
+            cout << "Invalid input. Please enter 'y' or 'n'.\n";
+        }
+    }
+}
+
+void feePayment() {
+    char feePaid;
+    while (true) {
+        cout << "Have you paid the tuition fees? (y/n): ";
+        cin >> feePaid;
+        feePaid = tolower(feePaid);
+        if (feePaid == 'y') {
+            return;
+        } else if (feePaid == 'n') {
+            cout << "Please pay the tuition fees before proceeding.\n";
+        } else {
+            cout << "Invalid input. Please enter 'y' or 'n'.\n";
+        }
+    }
+}
+
+void accommodationAssignment() {
+    char needAccom;
+    while (true) {
+        cout << "Do you need accommodation? (y/n): ";
+        cin >> needAccom;
+        needAccom = tolower(needAccom);
+        if (needAccom == 'y') {
+            cout << "Accommodation will be assigned to you.\n";
+            break;
+        } else if (needAccom == 'n') {
+            break;
+        } else {
+            cout << "Invalid input. Please enter 'y' or 'n'.\n";
+        }
+    }
+}
+
 
 int main() {
     string studentName;
