@@ -14,7 +14,8 @@ int main() {
         cout << "Post job internally\n";
         return 0;
     }
-    har isResumeCandidate;
+
+    char isResumeCandidate;
     cout << " Is there a suitable candidate? (y/n): ";
     cin >> isResumeCandidate;
 
@@ -36,4 +37,34 @@ int main() {
     } else {
         cout << "Arrange candidate meeting\n";
     }
+
+    cout << "Conduct pre-interview\n";
+    cout << "Setup interview question\n";
+    cout << "Conduct interview\n";
+
+    char referenceGood;
+    cout << "Good reference? (y/n): ";
+    cin >> referenceGood;
+    if (referenceGood == 'n' || referenceGood == 'N') {
+        cout << "Candidate not hired\n";
+        cout << "Return\n";
+        return 0;
+    }
+
+    cout << "Select candidate\n";
+    cout << "Evaluate pay rate\n";
+    cout << "Send Employment offer\n";
+
+    char offerConfirmed;
+    cout << "Candidate confirms offer? (y/n): ";
+    cin >> offerConfirmed;
+
+    if (offerConfirmed == 'n' || offerConfirmed == 'N') {
+        cout << "Candidate not hired\n";
+        cout << "Return\n";
+        return 0;
+    }
+
+    cout << "Hire candidate\n";
+    return 0;
 }
