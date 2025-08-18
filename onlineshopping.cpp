@@ -9,6 +9,19 @@ struct Item {
     bool requiresSeller; 
 };
 
+bool contactSeller(const string& itemName) {
+    cout << "Contact seller to ship '" << itemName << "' (y/n): ";
+    char response;
+    cin >> response;
+    if (response == 'y' || response == 'Y') {
+        cout << "Seller ships the goods for '" << itemName << "'.\n";
+        return true;
+    } else {
+        cout << "Invalid! Seller did not ship the goods for '" << itemName << "'.\n";
+        return false;
+    }
+}
+
 
 bool orderProcessing(vector<Item>& items) {
     for (size_t i = 0; i < items.size(); ++i) {
