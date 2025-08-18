@@ -43,6 +43,43 @@ bool insertChequeToMachine() {
     return (c == 'y' || c == 'Y');
 }
 
+struct TransactionData {
+    string receiverAccount;
+    string senderAccount;
+    double value;
+};
+
+TransactionData receiverProcess() {
+    TransactionData data;
+    cout << "Receiver Process [RP]\n";
+    data.receiverAccount = enterValidAccountNumber("Enter receiver 9-digit account number: ");
+    data.senderAccount = enterValidAccountNumber("Enter sender 9-digit account number: ");
+    cout << "Enter cheque value: ";
+    cin >> data.value;
+    return data;
+}
+
+bool senderReview() {
+    char response;
+    while (true) {
+        cout << "Did the sender review take 7 days? (y/n): ";
+        cin >> response;
+        if (response == 'y' || response == 'Y') return true;
+        else if (response == 'n' || response == 'N') return false;
+        else cout << "Invalid input, enter y or n.\n";
+    }
+}
+
+
+void bankProcess(TransactionData& data) {
+    cout << "Bank process [BP]\n";
+    cout << "Processing cheque value: " << data.value << "\n";
+
+    
+    if (senderReview()) {
+        moneyTransferredToReceiver();
+        return;
+    }
 
 
 int main() {
@@ -62,6 +99,9 @@ int main() {
         return 0;
     }
 
+    TransactionData data = receiverProcess();
+
+    bankProcess(data);
 
     
     return 0;
