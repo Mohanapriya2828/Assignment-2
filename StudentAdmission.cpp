@@ -19,6 +19,25 @@ bool registrationFormVerification() {
         }
     }
 }
+void tutorAssignment() {
+    char hasExtraCredits;
+    cout << "Assigning personal tutor...\n";
+    cout << "Meeting tutor...\n";
+    while (true) {
+        cout << "Do you have extra credits? (y/n): ";
+        cin >> hasExtraCredits;
+        hasExtraCredits = tolower(hasExtraCredits);
+        if (hasExtraCredits == 'y') {
+            cout << "Please choose additional courses.\n";
+            break;
+        } else if (hasExtraCredits == 'n') {
+            cout << "No additional courses chosen.\n";
+            break;
+        } else {
+            cout << "Invalid input. Please enter 'y' or 'n'.\n";
+        }
+    }
+}
 
 bool visaProcess() {
     char needVisa, appliedVisa;
