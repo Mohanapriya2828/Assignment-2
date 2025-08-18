@@ -70,6 +70,20 @@ bool senderReview() {
     }
 }
 
+bool authorising() {
+    char c;
+    while (true) {
+        cout << "Sender authorize? (y/n): ";
+        cin >> c;
+        if (c == 'y' || c == 'Y') return true;
+        else if (c == 'n' || c == 'N') return false;
+        else cout << "Invalid input, enter y or n.\n";
+    }
+}
+
+void moneyTransferredToReceiver() {
+    cout << "Money transferred to receiver.\n";
+}
 
 void bankProcess(TransactionData& data) {
     cout << "Bank process [BP]\n";
@@ -81,6 +95,16 @@ void bankProcess(TransactionData& data) {
         return;
     }
 
+    while (true) {
+        if (authorising()) {
+            moneyTransferredToReceiver();
+            break;
+        } else {
+            cout << "Invalid transaction. Return.\n";
+            break;
+        }
+    }
+}
 
 int main() {
     cout << "Start\n";
