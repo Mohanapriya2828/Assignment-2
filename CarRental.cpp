@@ -37,6 +37,42 @@ char getYN(string prompt) {
     }
 }
 
+bool registerUser() {
+    userIdentification();
+    cout << "Registering new user...\n";
+   
+    return true; 
+}
+
+
+bool loginUser() {
+    cout << "Login screen.\n";
+    string user, pass;
+    cout << "Enter username: ";
+    cin >> user;
+    cout << "Enter password: ";
+    cin >> pass;
+
+    
+    bool correct = (pass == "password"); 
+
+    if (!correct) {
+        cout << "Incorrect password.\n";
+        char reset = getYN("Forgot password?");
+        if (reset == 'Y') {
+            cout << "Requesting new password...\n";
+            
+            cout << "New password set.\n";
+            return true; 
+        } else {
+            cout << "Returning to login.\n";
+            return false;
+        }
+    }
+    cout << "Login successful.\n";
+    return true;
+}
+
 int main() {
    
 
